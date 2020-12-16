@@ -1,10 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
-import Home from './views';
+import Routes from './routes';
 
 function App() {
   return (
-    <Home/>
+    <Routes />
   );
 }
 
