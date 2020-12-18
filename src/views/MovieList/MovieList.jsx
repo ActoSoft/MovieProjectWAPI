@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import MovieCard from '../../components/MovieCard';
-import './movieList.css'
 
 const MovieList = (props) => {
 
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     setLoading(true)
     axios.get('http://react-couse-actosoft-api.actosoft.com.mx/movies')
