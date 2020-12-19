@@ -25,6 +25,16 @@
 	background-color: black;
 }
 
+.button-red {
+	color: #cb3234;
+	border: 2px solid #cb3234 !important;
+}
+
+.button-red:hover {
+	color: white !important;
+	background-color: #cb3234 !important;
+}
+
 .detail-movie-data-container {
 	text-align: center;
 }
