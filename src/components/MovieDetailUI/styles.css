@@ -1,0 +1,36 @@
+.detail-movie-title-container {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.detail-movie-title-container h1 {
+	margin-right: 25px;
+}
+
+.detail-movie-title-container button {
+	background: none;
+	border: 2px solid black;
+	border-radius: 5px;
+	padding: 5px 10px;
+	font-size: 16px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: 0.4s;
+	margin: 0 25px;
+}
+
+.detail-movie-title-container button:hover {
+	color: white;
+	background-color: black;
+}
+
+.detail-movie-data-container {
+	text-align: center;
+}
+
+.characters-container {
+	display: flex;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
+}

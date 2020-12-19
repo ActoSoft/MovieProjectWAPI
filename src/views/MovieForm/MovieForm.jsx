@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useHistory, useParams } from 'react-router-dom'
+import './styles.css'
 
 const initialState = {
     title: '',
@@ -19,7 +20,7 @@ const MovieForm = (props) => {
 
     useEffect(() => {
         if (movieId) {
-            axios.get(`http://react-couse-actosoft-api.actosoft.com.mx/movies/${movieId}`)
+            axios.get(`https://react-couse-actosoft-api.actosoft.com.mx/movies/${movieId}`)
             .then(response => {
                 const movie = response.data.data
                 setMovieData(movie)
@@ -40,12 +41,12 @@ const MovieForm = (props) => {
         let request
         if (isUpdating) {
             request = axios.put(
-                `http://react-couse-actosoft-api.actosoft.com.mx/movies/${movieId}`,
+                `https://react-couse-actosoft-api.actosoft.com.mx/movies/${movieId}`,
                 movieData
             )
         } else {
             request = axios.post(
-                'http://react-couse-actosoft-api.actosoft.com.mx/movies',
+                'https://react-couse-actosoft-api.actosoft.com.mx/movies',
                 movieData
             )
         }
@@ -60,40 +61,61 @@ const MovieForm = (props) => {
             console.log(error)
             alert('Arturo hizo mal el bvackend')
         })
-    }
+		}
+
+		const handleGoBack = () => {
+			history.goBack()
+		}
 
     return (
         <>
-            <h2>{isUpdating ?
-                'Edita la película' :
-                'Agregar una nueva película'}</h2>
-            <input
-                type="text"
-                name='title'
-                placeholder='Título'
-                onChange={handleChangeMovieData}
-                value={movieData.title}
-            />
-            <input
-                type="text"
-                name='img'
-                placeholder='URL de la imagen'
-                onChange={handleChangeMovieData}
-                value={movieData.img}
-            />
-            <textarea
-                name='description'
-                onChange={handleChangeMovieData}
-                value={movieData.description}
-            />
-            <input
-                type="number"
-                name='durationMinutes'
-                placeholder='Duración (min)'
-                onChange={handleChangeMovieData}
-                value={movieData.durationMinutes}
-            />
-            <button onClick={handleAddMovie}>
+            <div className="movie-form-title-container">
+								<h2>{isUpdating ?
+										'Edita la película' :
+										'Agregar una nueva película'}</h2>
+								<button onClick={handleGoBack}>Volver</button>
+						</div>
+            <div className='movie-form-container'>
+								<span>
+										<strong>Título: </strong>
+										<input
+												type="text"
+												name='title'
+												placeholder='Título'
+												onChange={handleChangeMovieData}
+												value={movieData.title}
+										/>
+								</span>
+								<span>
+										<strong>Url de la imagen: </strong>
+										<input
+												type="text"
+												name='img'
+												placeholder='URL de la imagen'
+												onChange={handleChangeMovieData}
+												value={movieData.img}
+										/>
+								</span>
+								<span>
+									<strong>Descripción: </strong>
+										<textarea
+												name='description'
+												onChange={handleChangeMovieData}
+												value={movieData.description}
+										/>
+								</span>
+								<span>
+										<strong>Duración en minutos: </strong>
+										<input
+												type="number"
+												name='durationMinutes'
+												placeholder='Duración (min)'
+												onChange={handleChangeMovieData}
+												value={movieData.durationMinutes}
+										/>
+								</span>
+						</div>
+            <button className="movie-form-confirm-button" onClick={handleAddMovie}>
                 {isUpdating ? 'Actualizar' : 'Agregar'} película
             </button>
         </>

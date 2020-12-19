@@ -18,7 +18,7 @@ function MovieDetail (props) {
 
     useEffect(() => {
         setLoading(true)
-        axios.get(`http://react-couse-actosoft-api.actosoft.com.mx/movies/${movieId}`)
+        axios.get(`https://react-couse-actosoft-api.actosoft.com.mx/movies/${movieId}`)
             .then(response => {
                 const movie = response.data.data
                 setMovie(movie)
