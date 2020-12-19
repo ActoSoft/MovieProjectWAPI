@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { API_URL } from '../../constants'
 import { useHistory, useParams } from 'react-router-dom'
 import './styles.css'
 
@@ -9,25 +10,33 @@ const initialState = {
     biography: '',
 }
 
-const CharacterForm = (props) => {
+const CharacterForm = () => {
 
     const history = useHistory()
-    const { movieId } = useParams()
+    const { movieId, characterId } = useParams()
 
     const [characterData, setCharacterData] = useState(initialState)
     const [isUpdating, setIsUpdating] = useState(false)
 
-    // useEffect(() => {
-    //     if (movieId) {
-    //         axios.get(`https://react-couse-actosoft-api.actosoft.com.mx/movies/${movieId}`)
-    //         .then(response => {
-    //             const movie = response.data.data
-    //             setMovieData(movie)
-    //             setIsUpdating(true)
-    //         })
-    //         .catch(err => console.log(err))
-    //     }
-    // }, [movieId])
+    useEffect(() => {
+        if (characterId) {
+            axios.get(`${API_URL}/movies/${movieId}`)
+            .then(response => {
+                handleFindCharacterInMovie(response.data.data, characterId)
+                setIsUpdating(true)
+            })
+            .catch(err => console.log(err))
+        }
+    }, [characterId, movieId])
+
+    const handleFindCharacterInMovie = (movie, characterId) => {
+        const character = movie.characters.find(character => character._id === characterId)
+        if (character) {
+            setCharacterData(character)
+        } else {
+            alert('No existe el personaje especificado')
+        }
+    }
 
     const handleChangeCharacterData = (event) => {
         setCharacterData({
@@ -36,42 +45,34 @@ const CharacterForm = (props) => {
         })
     }
 
-    // const handleAddMovie = (event) => {
-    //     let request
-    //     if (isUpdating) {
-    //         request = axios.put(
-    //             `https://react-couse-actosoft-api.actosoft.com.mx/movies/${movieId}`,
-    //             movieData
-    //         )
-    //     } else {
-    //         request = axios.post(
-    //             'https://react-couse-actosoft-api.actosoft.com.mx/movies',
-    //             movieData
-    //         )
-    //     }
+    const handleAddOrEditCharacter = () => {
+        let request
+        if (isUpdating) {
+            request = axios.put(`${API_URL}/movies/${movieId}/characters/${characterId}`, characterData)
+        } else {
+            request = axios.post(`${API_URL}/movies/${movieId}/characters`, characterData)
+        }
+        request
+            .then(response => {
+                console.log(response)
+                alert(`Personaje ${isUpdating ? 'actualizado' : 'creado'} correctamente`)
+                setTimeout(() => history.push(`/movies/${movieId}`), 1500)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
 
-    //     request.then(response => {
-    //         console.log(response)
-    //         const { _id } = response.data.data.movie
-    //         alert(`Película ${isUpdating ? 'actualizada' : 'agregada'}`)
-    //         setTimeout(() => history.push(`/movies/${_id}`), 3000)
-    //     })
-    //     .catch(error => {
-    //         console.log(error)
-    //         alert('Arturo hizo mal el bvackend')
-    //     })
-	// 	}
-
-		const handleGoBack = () => {
-			history.goBack()
-		}
+    const handleGoBack = () => {
+        history.goBack()
+    }
 
     return (
         <>
             <div className="character-form-title-container">
 								<h2>{isUpdating ?
-										'Edita la película' :
-										'Agregar una nueva película'}</h2>
+										'Edita el personaje' :
+										'Agregar un nuevo personaje'}</h2>
 								<button onClick={handleGoBack}>Volver</button>
 						</div>
             <div className='character-form-container'>
@@ -106,7 +107,7 @@ const CharacterForm = (props) => {
 						</div>
             <button
                 className="character-form-confirm-button"
-                // onClick={handleAddMovie}
+                onClick={handleAddOrEditCharacter}
             >
                 {isUpdating ? 'Actualizar' : 'Agregar'} personaje
             </button>

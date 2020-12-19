@@ -13,6 +13,7 @@ function Routes() {
       <Route exact path='/movies/:movieId/edit' component={MovieForm} />
       <Route exact path='/movies/:movieId' component={MovieDetail} />
       <Route exact path='/movies/:movieId/characters/add' component={CharacterForm} />
+      <Route exact path='/movies/:movieId/characters/:characterId/edit' component={CharacterForm} />
       <Route path='/redirect' render={() => <Redirect to='/movies' />} />
       <Route exact path='/' component={Home} />
       <Route render={() => <h1>Esta ruta no existe 404</h1>} />

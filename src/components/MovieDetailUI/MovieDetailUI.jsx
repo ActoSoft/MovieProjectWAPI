@@ -2,7 +2,7 @@ import CharacterCard from '../CharacterCard'
 import { useHistory } from 'react-router-dom'
 import './styles.css'
 
-const MovieDetailUI = ({ movie, handleDeleteMovie }) => {
+const MovieDetailUI = ({ movie, handleDeleteMovie, handleDeleteCharacter }) => {
     const history = useHistory()
     const hasCharacters = characters => {
         return characters.length > 0
@@ -12,13 +12,13 @@ const MovieDetailUI = ({ movie, handleDeleteMovie }) => {
         history.push(`/movies/${movie._id}/edit`)
 		}
 
-		const handleGoToMovieList = () => {
-			history.push('/movies')
-		}
+	const handleGoToMovieList = () => {
+		history.push('/movies')
+	}
 
-		const handleGoToAddCharacters = () => {
-			history.push(`/movies/${movie._id}/characters/add`)
-		}
+	const handleGoToAddCharacters = () => {
+		history.push(`/movies/${movie._id}/characters/add`)
+	}
 
     return (
         <>
@@ -39,8 +39,10 @@ const MovieDetailUI = ({ movie, handleDeleteMovie }) => {
 										{hasCharacters(movie.characters) ?
 												movie.characters.map(character =>
 														<CharacterCard
+																movieId={movie._id}
 																key={character._id}
 																character={character}
+																handleDeleteCharacter={handleDeleteCharacter}
 														/>
 												)
 										: <p>No hay personajes registrados</p>
