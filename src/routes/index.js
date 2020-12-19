@@ -3,6 +3,7 @@ import Home from '../views/Home'
 import MovieList from '../views/MovieList'
 import MovieDetail from '../views/MovieDetail'
 import MovieForm from '../views/MovieForm'
+import CharacterForm from '../views/CharacterForm'
 
 function Routes() {
   return (
@@ -11,6 +12,7 @@ function Routes() {
       <Route exact path='/movies/add' component={MovieForm} />
       <Route exact path='/movies/:movieId/edit' component={MovieForm} />
       <Route exact path='/movies/:movieId' component={MovieDetail} />
+      <Route exact path='/movies/:movieId/characters/add' component={CharacterForm} />
       <Route path='/redirect' render={() => <Redirect to='/movies' />} />
       <Route exact path='/' component={Home} />
       <Route render={() => <h1>Esta ruta no existe 404</h1>} />

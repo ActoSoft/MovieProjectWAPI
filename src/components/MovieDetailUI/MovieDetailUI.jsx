@@ -12,9 +12,13 @@ const MovieDetailUI = ({ movie, handleDeleteMovie }) => {
         history.push(`/movies/${movie._id}/edit`)
 		}
 
-	const handleGoToMovieList = () => {
-		history.push('/movies')
-	}
+		const handleGoToMovieList = () => {
+			history.push('/movies')
+		}
+
+		const handleGoToAddCharacters = () => {
+			history.push(`/movies/${movie._id}/characters/add`)
+		}
 
     return (
         <>
@@ -22,6 +26,7 @@ const MovieDetailUI = ({ movie, handleDeleteMovie }) => {
 								<h1>Detalle la pelicula: {movie.title}</h1>
 								<button onClick={handleGoToEditMovie}>Editar película</button>
 								<button className="button-red" onClick={handleDeleteMovie}>Eliminar película</button>
+								<button className="button-bluecito" onClick={handleGoToAddCharacters}>Agregar personajes</button>
 								<button onClick={handleGoToMovieList}>Regresar a la lista de películas</button>
 						</div>
             <div className="detail-movie-data-container">

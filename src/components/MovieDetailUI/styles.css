@@ -35,6 +35,16 @@
 	background-color: #cb3234 !important;
 }
 
+.button-bluecito {
+	color:  rgba(0, 132, 255, 0.658) !important;
+	border-color:  rgba(0, 132, 255, 0.658) !important;
+}
+
+.button-bluecito:hover {
+	color: white;
+	background-color:  rgba(0, 132, 255, 0.658) !important;
+}
+
 .detail-movie-data-container {
 	text-align: center;
 }
