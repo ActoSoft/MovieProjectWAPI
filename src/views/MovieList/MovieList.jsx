@@ -2,7 +2,16 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import MovieCard from '../../components/MovieCard';
-import './styles.css';
+// import './styles.css';
+import {
+  MovieListContainer,
+  MovieListTitleContainer,
+  ListContainerTitle,
+  GoToAddMovieButton,
+  MovieCardsContainer,
+  Paragraph
+} from './MovieList.styled';
+
 
 const MovieList = (props) => {
 
@@ -31,23 +40,23 @@ const MovieList = (props) => {
 	}
 
   return(
-    <div className='movieList-container'>
-      <div className="movieList-title-container">
-					<h1>Lista de películas</h1>
-					<button className="go-to-add-movie-button" onClick={handleGoToAddMovie}>
+    <MovieListContainer>
+      <MovieListTitleContainer>
+					<ListContainerTitle>Lista de películas</ListContainerTitle>
+					<GoToAddMovieButton onClick={handleGoToAddMovie}>
 						Agregar película
-					</button>
-			</div>
-			<div className="movie-cards-container">
+					</GoToAddMovieButton>
+			</MovieListTitleContainer>
+			<MovieCardsContainer>
 				{!loading ? movies.map(movie =>
 				<MovieCard
 						onClick={handleShowMovieDetail}
 						key={movie._id}
 						movie={movie}
 					/>
-				): <p>Cargando datos...</p>}
-			</div>
-    </div>
+				): <Paragraph>Cargando datos...</Paragraph>}
+			</MovieCardsContainer>
+    </MovieListContainer>
   );
 };
 
